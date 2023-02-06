@@ -34,7 +34,7 @@ def index(request):
         acc.username="Admin"
         password=make_password("Admin")
         acc.password=password
-        user=User.objects.get(Id_no="Admin")
+        #user=User.objects.get(Id_no="Admin")
         #user1=int(user.id)
         #acc.User=user1
         #acc.save()
