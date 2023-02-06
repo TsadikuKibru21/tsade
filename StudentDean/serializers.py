@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Block,Dorm
+from .models import Block,Dorm,Placement
 from account.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +11,10 @@ class BlockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Block
         fields = ['Block_name', 'Block_type', 'Block_purpose']
-
+class PlacementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Placement
+        fields = ['Stud_id', 'FirstName', 'LastName','block','room']
 
 class DormSerializer(serializers.ModelSerializer):
     class Meta:

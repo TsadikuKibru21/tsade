@@ -19,11 +19,13 @@ urlpatterns = [
     #############User Registration###############3
     path('adduser/',views.Adduser,name='adduser'),
     path('adduser/adduser1',views.Adduser1,name='adduser1'),
+
     path('Import_User/',views.Import_User,name="Import_User"),
     ############
     #path("upload/", views.StudentBulkUploadView.as_view(), name="student_upload"),
     path("download-csv/", views.DownloadCSVViewdownloadcsv.as_view(), name="download_csv"),
-   
+    path('Import_User1/',views.Import_User1,name="Import_User1"),
+    path("download-csv1/", views.DownloadCSVViewdownloadcsv1.as_view(), name="download_csv1"),
 ]
 
 

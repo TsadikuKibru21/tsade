@@ -30,3 +30,13 @@ class Dorm(models.Model):
     Status=models.CharField(max_length=150 , choices=CHOICES)
     def __str__(self):
         return self.Dorm_name
+    
+
+class Placement(models.Model):
+    Stud_id=models.CharField(max_length=100)
+    FirstName=models.CharField(max_length=100)
+    LastName=models.CharField(max_length=100)
+    block=models.CharField(max_length=100)
+    room=models.CharField(max_length=100)
+    def __str__(self):
+        return self.Stud_id

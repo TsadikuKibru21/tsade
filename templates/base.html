@@ -77,10 +77,10 @@
             data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
               {% comment %} {% url 'student-list' %} {% endcomment %}
-              <a href="/" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-graduation-cap"></i>
                 <p>
-                  Students
+                  Home
                 </p>
               </a>
             </li>
@@ -90,58 +90,30 @@
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Member of Staff
-                  <i class="fas fa-angle-left right"></i>
+                 
                 </p>
                 
               </a>
             </li>
-            {% comment %} {% url 'staff-list' %} {% endcomment %}
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Create User account
-                
-              </p>
-              
-            </a>
-          </li>
+      
           
 
             <li class="nav-header">Placement</li>
             <li class="nav-item">
               {% comment %} {% url 'invoice-list' %} {% endcomment %}
-              <a href="#" class="nav-link">
+              <a href="{% url 'Import_User1' %}" class="nav-link">
                 <i class="nav-icon fas fa-money-bill-alt"></i>
                 <p>
-                  Students
-                </p>
-              </a>
-            </li>
-            <li class="nav-header">Results</li>
-            <li class="nav-item">
-              {% comment %} {% url 'create-result' %} {% endcomment %}
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  Create Results
+                  Place Students
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              {% comment %} {% url 'edit-results' %} {% endcomment %}
+              {% comment %} {% url 'invoice-list' %} {% endcomment %}
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-money-bill-alt"></i>
                 <p>
-                  Update Results
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              {% comment %} {% url 'view-results' %} {% endcomment %}
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  View Results
+                  Manage Students
                 </p>
               </a>
             </li>

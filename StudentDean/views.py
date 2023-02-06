@@ -9,7 +9,7 @@ from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from django.contrib import messages
-from .serializers import BlockSerializer,DormSerializer,UserSerializer,SaveFileSerializer,UserUploadSerializer
+from .serializers import BlockSerializer,DormSerializer,PlacementSerializer,UserSerializer,SaveFileSerializer,UserUploadSerializer
 from rest_framework.renderers import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
@@ -153,6 +153,10 @@ def Adduser1(request):
        else:
             messages.error(request,'Insert the Necessary information Data...!!')
             return redirect('adduser')
+       
+
+
+
 def Import_User(request):
     try:
         if request.method == 'POST' and request.FILES['myfile']:      
@@ -207,3 +211,147 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
         )
 
         return response
+    
+
+
+##################################
+def Import_User1(request):
+    try:
+        if request.method == 'POST' and request.FILES['myfile']:      
+            myfile = request.FILES['myfile']             
+            empexceldata = pd.read_excel(myfile)        
+            dbframe = empexceldata
+            count=0
+            social_male_student=[]
+            natural_male_student=[]
+            social_female_student=[]
+            natural_female_student=[]
+            for data in dbframe.itertuples():
+                    sd=list(data)
+                   
+                    if sd[3]=='male':
+                         if sd[4]=='social':
+                              social_male_student.append(sd)
+                         else:
+                              natural_male_student.append(sd)
+                    else:
+                         if sd[4]=='social':
+                              social_female_student.append(sd)
+                         else:
+                              natural_female_student.append(sd)
+            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
+            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
+            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
+            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
+            
+          
+            d_all=Dorm.objects.all().order_by('Block').values()
+        
+            for dm in d_all:
+                    count=0
+                    bl=dm['Block_id']
+                    block=Block.objects.get(id=bl)
+                    for data in sorted_male_social_student:
+                        if str(block.Block_purpose)=='Males Block':  
+                                if count<int(dm['Capacity']):
+                                    
+                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
+                                    place.save()
+                                    count=count+1
+                                    
+                                    sorted_male_social_student.remove(data)
+                                else:
+                                    count=0
+                                    break
+                    
+    #  Social Female
+            for dm in d_all:
+                    count=0
+                    bl=dm['Block_id']
+                    block=Block.objects.get(id=bl)
+                    for data in sorted_female_social_student:
+                        if str(block.Block_purpose)=='Females Block':  
+                                if count<int(dm['Capacity']):
+                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
+                                    place.save()
+                                    count=count+1
+                                    
+                                    sorted_female_social_student.remove(data)
+                                else:
+                                    count=0
+                                    break                           
+                        
+
+    
+            for dm in d_all:
+                    count=0
+                    bl=dm['Block_id']
+                    block=Block.objects.get(id=bl)
+                    for data in sorted_male_natural_student:
+                        if str(block.Block_purpose)=='Males Block':  
+                                if count<int(dm['Capacity']):
+                                    
+                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
+                                    place.save()
+                                    count=count+1
+                                    
+                                    sorted_male_natural_student.remove(data)
+                                else:
+                                    count=0
+                                    break      
+            for dm in d_all:
+                for data in sorted_female_natural_student:
+                        if count<=dm['Capacity']:
+                            bl=dm['Block_id']
+                            block=Block.objects.get(Block=bl)
+                            if block['Block_purpose']=="Females Block":      
+                                    place=Placement(data['Stud_id'],dm['id'],data['Stud_FirstName'],data['Stud_LastName'],bl,dm['Dorm_name'])
+                                    place.save()
+                                    count+=1
+                                    sorted_female_natural_student.remove(data)
+                            else:
+                                count=0
+                                break                  
+                        
+    #   #Natural Female
+    #         count=0
+    #         for dm in d_all:
+    #               for data in sorted_female_natural_student:
+    #                   if count<=dm['Capacity']:
+    #                     bl=dm['Block_id']
+    #                     block=Block.objects.get(Block=bl)
+    #                     if block['Block_purpose']==b:      
+    #                          place=Placement(data['Stud_id'],dm['id'],data['Stud_FirstName'],data['Stud_LastName'],bl,dm['Dorm_name'])
+    #                          place.save()
+    #                          count+=1
+    #                          sorted_female_natural_student.remove(data)
+    #                   else:
+    #                        count=0
+    #                        break    
+            messages.success(request,'Sudent placed successfully....!!!')                
+    except:
+          messages.error(request,'Empty or Invalid File...!!')
+    return render(request, 'StudentDean/uploadstudent.html',{})
+
+class DownloadCSVViewdownloadcsv1(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="student_template.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(
+            [   
+                "Id_no",
+                "FirstName",
+                "LastName",
+                "sex",
+                "stream",
+                "collage",
+                "Department",
+                "Year_of_Student",
+                
+            ]
+        )
+
+        return response
+    

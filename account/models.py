@@ -26,7 +26,7 @@ class User(models.Model):
         return self.FirstName
     
 class UserAccount(AbstractUser):
-      Role=models.ForeignKey(Role,on_delete=models.CASCADE,null=True,blank=True,default="student")
+      Role=models.ForeignKey(Role,on_delete=models.CASCADE,null=True,blank=True)
       username=models.CharField(max_length=200,null=True,unique=True)
       password=models.CharField(max_length=500)
       User=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
