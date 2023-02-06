@@ -1,0 +1,95 @@
+{% extends 'account/index.html' %}
+
+{% block title %}
+  <center>Generate User Account</center>
+{% endblock title %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <title>Add Block</title>
+</head>
+</body>
+{% block content%}
+{% if messages %}
+{% for message in messages %}
+{% endfor %}
+{% endif %}
+<form action="{% url 'deleteuser' %}" method="POST">
+  {% csrf_token %}
+<table id="useraccounttable"  class="table table-sm table-bordered" data-page-length='100'>
+    <thead class="thead-light">
+        <tr>  
+            <th scope="col"><input type="checkbox" id="selecter"></th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Id_no</th>
+            <th scope="col">Gender</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in User %}
+    <tr>
+        <td><input type="checkbox" id="{{result.id}}" name="users" value="{{result.Id_no}}"></td>
+        <td > {{result.FirstName}} </a></td>
+        <td>{{result.LastName}}</td>
+        <td>{{result.Id_no}}</td>
+        <td>{{result.Gender}}</td>
+       
+        <!-- <td>
+            <a class="btn btn-success"  href="#" role="button">Edit</a>
+            <a class="btn btn-danger" href="#" role="button" onclick="return confirm('Are you sure you want to delete?')">Remove</a>
+        </td>                -->
+    </tr>
+    
+    {% endfor%}
+
+</tbody>
+</table>
+<a href="{% url 'deleteuser' %}"><input id="get-selected" type="submit" class="btn btn-danger mt-2" value="Delete Users" onclick="return confirm('Are you sure you want to delete?')"></a>
+
+</form>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+
+        $("#get-selected").click(function () {
+            var Id_no = [];
+            var csrf=$('input[name=csrfmiddlewaretoken]').val();
+            $.each($("input:checkbox[name='users']:checked"), function () {
+              Id_no.push($(this).val());
+            });
+            
+            // alert("We remain open on: " + Id_no.join(", "));
+        })
+        // var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+    });
+</script>
+{% endblock %}
+
+{% block morejs %}
+<script>
+  $('#useraccounttable').DataTable({
+    "ordering": false
+  });
+
+  $("#selecter").change(function () {
+    if (this.checked) {
+      $('input[name="users"]').prop('checked', true);
+    }
+    else {
+      $('input[name="users"]').prop('checked', false);
+    }
+  });
+</script>
+
+{% endblock morejs %}
+
+</body>
+</html>

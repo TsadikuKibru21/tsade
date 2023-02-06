@@ -1,0 +1,40 @@
+{% extends "Sdeanindex.html"%}
+{% load crispy_forms_tags%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <title>Add Block</title>
+</head>
+<body>
+  {% load crispy_forms_tags %}  
+    {% block content%}
+    {% if messages %}
+     {% for message in messages %}
+       <div class="alert alert-dismissible alert-success">
+         <button type="button" class="close" data-dismiss="alert">
+         ×
+         </button>
+         <strong>{{message}}</strong>
+       </div>
+    {% endfor %}
+   {% endif %}
+    <form action="#" method="POST">
+      
+     {% csrf_token %}
+     {{form|crispy}}
+     
+    
+     <button type="submit" class="btn btn-primary">Update</button>
+   </form>
+   {% endblock content%}
+
+
+</body>
+</html>

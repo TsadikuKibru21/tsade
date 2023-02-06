@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
+    <style>
+        
+        .nav-item {
+           
+            font-size:18px;
+            text-transform:uppercase;
+            height:82px;
+            line-height:64px;
+          }
+          .flare {
+            background:#ef662b;
+          }
+          .flare a.nav-link {
+            color:#fff !important
+          }
+          .topbarElements > div:nth-of-type(1){
+            font-size:48px;
+            margin:12px 32px;
+            color:#ef662b
+          }
+          @media screen and (min-width:1040px){
+            .flare { margin-right:-15px; }
+          }
+          @media screen and (max-width:1029px){
+            .navbar-nav {
+              margin-bottom:15px;
+              text-align:center
+            }
+            .nav-item {
+              background : rgba(255,255,255,0.1);
+              margin:2px;
+            }
+          }
+          body, html {
+            height: 100%;
+            margin: 0;
+          }
+          
+          #bg {
+            /* The image used */
+            background-image: url("static/images/wku2.jpg");
+          
+            /* Full height */
+            height: 100%; 
+          
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+    
+        </style>
+       
+    <title>DMS</title>
+</head>
+<body >
+   
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0 m-0">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="/static/images/wku1.jpg" alt="DBK Logo" width="200" height="72"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+       
+          <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+              <li class="nav-item">
+                <a class="nav-link mx-2 active" aria-current="page" href="/">Home</a>
+              </li>
+             
+              <li class="nav-item flare">
+              
+                <a class="nav-link mx-2"  href="{% url 'login_view'  %}">Sign in <span class="ms-2"></span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div id="bg">
+          <center><br><br><h1 class="p-0 m-0 text-uppercase"> WOLKITE UNIVERSITY <br> DORMITORY MANAGEMENT SYSTEM</h1></center>
+      
+       {% block content %}
+
+        {% endblock content %}
+        </div>
+<footer>
+  <div class="row align-items-center text-center">
+    <div class="col">
+      <div class="topbarElements d-inline-flex align-items-center">
+        <div>&#x27A4;</div>
+        <div class="text-start d-md-block d-none">
+          <h5 class="p-0 m-0 text-uppercase">Office</h5>
+          <p class="p-0 m-0 text-secondary">123 Block 10 Room</p>
+        </div>
+      </div>
+    </div>
+    <div class="col border-start border-end">
+      <div class="topbarElements d-inline-flex align-items-center">
+        <div>&#x270E;</div>
+        <div class="text-start d-md-block d-none">
+          <h5 class="p-0 m-0 text-uppercase">Email</h5>
+          <p class="p-0 m-0 text-secondary">danielsemu06@email.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="topbarElements d-inline-flex align-items-center">
+        <div>
+          &#x260F;
+        </div>
+        <div class="text-start d-md-block d-none">
+          <h5 class="p-0 m-0 text-uppercase">Phone</h5>
+          <p class="p-0 m-0 text-secondary">+251 912 13 14 15 </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+     
+</body>
+</html></html>
+
+
+
+
