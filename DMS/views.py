@@ -35,10 +35,10 @@ def index(request):
         password=make_password("Admin")
         acc.password=password
         user=User.objects.get(Id_no="Admin")
-        user1=int(user.id)
-        acc.User=user1
-        acc.save()
-        print("accc added ",user1)
+        #user1=int(user.id)
+        #acc.User=user1
+        #acc.save()
+        #print("accc added ",user1)
     return render(request,"index.html")
 def login_view(request):
     form=LoginForm(request.POST or None)
