@@ -6,6 +6,7 @@ from django.views.generic import DetailView, ListView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 import csv, pandas as pd
 from .models import *
+
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from django.contrib import messages
@@ -201,7 +202,9 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
                 "LastName",
                 "Gender",
                 "phone_no",
-                "Departmnet",
+                "Department",
+                'stream',
+                'collage',
                 "Year_of_Student",
                 "Emergency_responder_name",
                 "Emergency_responder_address",
@@ -217,18 +220,16 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
 ##################################
 def Import_User1(request):
     try:
-        if request.method == 'POST' and request.FILES['myfile']:      
-            myfile = request.FILES['myfile']             
-            empexceldata = pd.read_excel(myfile)        
-            dbframe = empexceldata
+        if request.method == 'POST':      
+                       
             count=0
             social_male_student=[]
             natural_male_student=[]
             social_female_student=[]
             natural_female_student=[]
-            for data in dbframe.itertuples():
+            for data in User:
                     sd=list(data)
-                   
+                    
                     if sd[3]=='male':
                          if sd[4]=='social':
                               social_male_student.append(sd)
@@ -239,10 +240,10 @@ def Import_User1(request):
                               social_female_student.append(sd)
                          else:
                               natural_female_student.append(sd)
-            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
-            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
-            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
-            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[4],x[5],x[6],x[7],x[1],x[2]))
+            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
+            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
+            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
+            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             
           
             d_all=Dorm.objects.all().order_by('Block').values()
@@ -332,26 +333,3 @@ def Import_User1(request):
     except:
           messages.error(request,'Empty or Invalid File...!!')
     return render(request, 'StudentDean/uploadstudent.html',{})
-
-class DownloadCSVViewdownloadcsv1(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = 'attachment; filename="student_template.csv"'
-
-        writer = csv.writer(response)
-        writer.writerow(
-            [   
-                "Id_no",
-                "FirstName",
-                "LastName",
-                "sex",
-                "stream",
-                "collage",
-                "Department",
-                "Year_of_Student",
-                
-            ]
-        )
-
-        return response
-    
