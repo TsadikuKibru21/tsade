@@ -232,7 +232,7 @@ def Import_User1(request):
             natural_female_student=[]
          #   print(1)
             a=User.objects.all().order_by('FirstName').values()
-            print(a)
+           # print(a)
             for data in a:
                     if data['Gender']=='male':
                          if data['stream']=='social':
@@ -253,7 +253,7 @@ def Import_User1(request):
             sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             
-          
+            
             d_all=Dorm.objects.all().order_by('Block').values()
         
             for dm in d_all:
