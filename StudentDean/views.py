@@ -232,29 +232,53 @@ def Import_User1(request):
             natural_female_student=[]
          #   print(1)
             a=User.objects.all().order_by('FirstName').values()
-           
             for data in a:
-                    
+                    b=[]
+                    #print(data['stream'])
+                   # print(data.values())
+                    # b=dict(data['Id_no'],data['FirstName'],,,,,,)
+                    # print(b)
+                    a1=data['Id_no']
+                    a2=data['FirstName']
+                    a3=data['LastName']
+                    a4=data['Gender']
+                    a5=data['Department']
+                    a6=data['collage']
+                    a7=data['stream']
+                    a8=data['Year_of_Student'] 
+                    #print(a5)
+                    b.append(a1)
+                    b.append(a2)
+                    b.append(a3)
+                    b.append(a4)
+                    b.append(a5)
+                    b.append(a6)
+                    b.append(a7)
+                    b.append(a8)
+                 
+                   
+
                     if data['Gender']=='M':
+                       
                          if data['stream']=='social':
-                              sd=(data)
-                              social_male_student.append(sd)
+                              # social_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                              social_male_student.append(b)
                          else:
-                              sd=(data)
-                              natural_male_student.append(sd)
+                              natural_male_student.append(b)
+                              #natural_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
                     else:
                          if data['stream']=='social':
-                              sd=(data)
-                              social_female_student.append(sd)
+                             social_male_student.append(b)
+                             # social_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
                          else:
-                              sd=(data)
-                              natural_female_student.append(sd)
-            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
-            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
-            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
-            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
+                              natural_female_student.append(b)
+                              #natural_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
+            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
+            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
+            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
             
-            print(sorted_male_social_student)
+           # print(sorted_male_social_student)
             d_all=Dorm.objects.all().order_by('Block').values()
         
             for dm in d_all:
