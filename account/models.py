@@ -14,13 +14,19 @@ class User(models.Model):
         ('yes','Student'),
         ('no', 'Not Student')
     )
+    stream=(
+
+        ('social','social'),
+        ('natural','natural')
+
+    )
     #Role=models.ForeignKey(Role,on_delete=models.CASCADE,null=True)
     Id_no=models.CharField(max_length=200,null=False)
     FirstName=models.CharField(max_length=100,null=False)
     LastName=models.CharField(max_length=100,null=False)
     Gender=models.CharField(choices=GENDER_CHOICES, max_length=6, null=False,default='M')
     phone_no=models.IntegerField(null=False)
-    stream=models.CharField(max_length=200, null=True,blank=True)
+    stream=models.CharField(max_length=200, null=True,blank=True,choices=stream)
     collage=models.CharField(max_length=200, null=True,blank=True)
     Department=models.CharField(max_length=200, null=True,blank=True)
     Year_of_Student=models.CharField(max_length=50, null=True,blank=True)
