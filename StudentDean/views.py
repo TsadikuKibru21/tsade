@@ -232,34 +232,36 @@ def Import_User1(request):
             natural_female_student=[]
          #   print(1)
             a=User.objects.all().order_by('FirstName').values()
-           # print(a)
+           
             for data in a:
-                    if data['Gender']=='male':
+                    
+                    if data['Gender']=='M':
                          if data['stream']=='social':
-                              sd=list(data)
+                              sd=(data)
                               social_male_student.append(sd)
                          else:
-                              sd=list(data)
+                              sd=(data)
                               natural_male_student.append(sd)
                     else:
                          if data['stream']=='social':
-                              sd=list(data)
+                              sd=(data)
                               social_female_student.append(sd)
                          else:
-                              sd=list(data)
+                              sd=(data)
                               natural_female_student.append(sd)
             sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[6],x[7],x[5],x[8],x[1],x[2]))
             
-            
+            print(sorted_male_social_student)
             d_all=Dorm.objects.all().order_by('Block').values()
         
             for dm in d_all:
                     count=0
                     bl=dm['Block_id']
                     block=Block.objects.get(id=bl)
+                   # print(sorted_male_social_student)
                     for data in sorted_male_social_student:
                         if str(block.Block_purpose)=='Males Block':  
                                 if count<int(dm['Capacity']):
