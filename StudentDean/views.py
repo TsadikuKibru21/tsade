@@ -221,7 +221,7 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
 def Import_User1(request):
     # a=User.objects.all()
     # for i in a:
-    #      print(i)
+   # print(1)
     try:
         if request.method == 'POST':      
                        
@@ -230,19 +230,19 @@ def Import_User1(request):
             natural_male_student=[]
             social_female_student=[]
             natural_female_student=[]
-
-            for data in User.objects.all():
-                   
-                    
-                    if data.Gender=='male':
-                         if data.stream=='social':
+         #   print(1)
+            a=User.objects.all().order_by('FirstName').values()
+            print(a)
+            for data in a:
+                    if data['Gender']=='male':
+                         if data['stream']=='social':
                               sd=list(data)
                               social_male_student.append(sd)
                          else:
                               sd=list(data)
                               natural_male_student.append(sd)
                     else:
-                         if data.stream=='social':
+                         if data['stream']=='social':
                               sd=list(data)
                               social_female_student.append(sd)
                          else:
