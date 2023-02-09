@@ -10,6 +10,10 @@ class User(models.Model):
         ('M','Male'),
         ('F', 'Female')
     )
+    Stud_or_not=(
+        ('yes','Student'),
+        ('no', 'Not Student')
+    )
     #Role=models.ForeignKey(Role,on_delete=models.CASCADE,null=True)
     Id_no=models.CharField(max_length=200,null=False)
     FirstName=models.CharField(max_length=100,null=False)
@@ -24,6 +28,7 @@ class User(models.Model):
     Emergency_responder_address=models.CharField(max_length=200,null=True,blank=True)
     Emergency_responder_phone_no=models.CharField(max_length=13, null=True,blank=True)
     Employee_id=models.CharField(max_length=50, null=True,blank=True)
+    Student_or_Not=models.CharField(max_length=50,null=False,choices=Stud_or_not)
     def __str__(self):
         return self.FirstName
     

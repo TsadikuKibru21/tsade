@@ -210,6 +210,7 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
                 "Emergency_responder_address",
                 "Emergency_responder_phone_no",
                 "Employee_id",
+                "Student_or_Not",
             ]
         )
 
@@ -246,6 +247,7 @@ def Import_User1(request):
                     a6=data['collage']
                     a7=data['stream']
                     a8=data['Year_of_Student'] 
+                    aa=data['Student_or_Not']
                     #print(a5)
                     b.append(a1)
                     b.append(a2)
@@ -257,21 +259,21 @@ def Import_User1(request):
                     b.append(a8)
                  
                    
-
-                    if data['Gender']=='M':
-                       
-                         if data['stream']=='social':
-                              # social_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-                              social_male_student.append(b)
-                         else:
-                              natural_male_student.append(b)
-                              #natural_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-                    else:
-                         if data['stream']=='social':
-                             social_male_student.append(b)
-                             # social_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-                         else:
-                              natural_female_student.append(b)
+                    if str(aa)!='no':    
+                        if data['Gender']=='M':
+                        
+                            if data['stream']=='social':
+                                # social_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                                social_male_student.append(b)
+                            else:
+                                natural_male_student.append(b)
+                                #natural_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                        else:
+                            if data['stream']=='social':
+                                social_male_student.append(b)
+                                # social_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                            else:
+                                natural_female_student.append(b)
                               #natural_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
             sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
             sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
