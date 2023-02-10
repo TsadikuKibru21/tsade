@@ -36,6 +36,8 @@ class Placement(models.Model):
     Stud_id=models.CharField(max_length=100)
     FirstName=models.CharField(max_length=100)
     LastName=models.CharField(max_length=100)
+    collage=models.CharField(max_length=100)
+    department=models.CharField(max_length=100)
     block=models.CharField(max_length=100)
     room=models.CharField(max_length=100)
     def __str__(self):

@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 
 
+
+
+
 {% block content %}
 
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
   
-    <input type="submit" class="btn btn-success" value="Place Student">
+    <input type="submit" class="btn btn-success" value="Reset Student Placement">
   </form>
 
 {% endblock content %}

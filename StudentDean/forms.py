@@ -1,6 +1,6 @@
 from dataclasses import field
 from django import forms
-from .models import Block,Dorm
+from .models import *
 
 class AddBlockForm(forms.ModelForm):
     class Meta:
@@ -46,3 +46,8 @@ class AddDorm(forms.ModelForm):
     class Meta:
         model = Dorm
         fields = '__all__'
+    
+class AddPlacementForm(forms.ModelForm):
+    class Meta:
+        model=Placement
+        fields='__all__'

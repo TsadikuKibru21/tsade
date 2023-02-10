@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,redirect
 from account.models import User,UserAccount
-from .forms import AddBlockForm,AddDorm
+from .forms import *
 from django.views.generic import DetailView, ListView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 import csv, pandas as pd
@@ -226,7 +226,7 @@ def Import_User1(request):
     try:
         if request.method == 'POST':      
                        
-            count=0
+           # count=0
             social_male_student=[]
             natural_male_student=[]
             social_female_student=[]
@@ -275,90 +275,92 @@ def Import_User1(request):
                             else:
                                 natural_female_student.append(b)
                               #natural_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
-            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
-            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
-            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[5],x[6],x[5],x[4],x[7],x[1],x[2]))
-            
+            sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
+            sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
+            sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
+            sorted_female_natural_student=sorted(natural_female_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
+            male_list_all=sorted_male_social_student+sorted_male_natural_student
            # print(sorted_male_social_student)
-            d_all=Dorm.objects.all().order_by('Block').values()
-            
+            female_list_all=sorted_female_social_student+sorted_female_natural_student
+            ord=['Block','Dorm_name']
+            d_all=Dorm.objects.all().order_by(*ord).values()
+            # print(male_list_all)
+            print(male_list_all)
+            # print(female_list_all)
             for dm in d_all:
-                    count=0
-                    bl=dm['Block_id']
-                    block=Block.objects.get(id=bl)
-                   # print(sorted_male_social_student)
-                    if str(block.Block_purpose)=='Males Block': 
-                       
-                        for data in sorted_male_social_student:
-                                
-                                 if count<=int(dm['Capacity']):    
-                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
-                                    place.save()
-                                    count=count+1
-                                 
-                                    sorted_male_social_student.remove(data)
-                                
-                                 else:
-                                    count=0
-                                    break
-                    
+           
+                        bl=dm['Block_id']
+                        block=Block.objects.get(id=bl)
+                    # print(sorted_male_social_student)
+                        if str(block.Block_purpose)=='Males Block': 
+                           # print(dm)
+                            for data in male_list_all:
+                                    # cnt=Placement.objects.filter(room=dm['Dorm_name']).count()
+                                    # if cnt<=int(dm['Capacity']):  
+                                          
+                                        place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],collage=data[5],department=data[4] ,block=block,room=dm['Dorm_name'])
+                                        place.save()
+                                        print(place.department)
+                                        # cnt=cnt+1
+                                        # print(cnt)
+                                    
+                                        male_list_all.remove(data)
+                                       # male_list_all=sorted(male_list_all,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
+                                    
+                                   
+                        
     #  Social Female
-            for dm in d_all:
+           
+            # for dm in d_all:
                  
-                    bl=dm['Block_id']
-                    block=Block.objects.get(id=bl)
-                    if str(block.Block_purpose)=='Females Block':  
-                       
-                        for data in sorted_female_social_student:
-                                if count<=int(dm['Capacity']):    
-                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
-                                    place.save()
-                                    count=count+1
-                                 
-                                    sorted_female_social_student.remove(data)
+            #         bl=dm['Block_id']
+            #         block=Block.objects.get(id=bl)
+            #         if str(block.Block_purpose)=='Females Block':  
+                        
+            #             for data in sorted_female_social_student:
+            #                     cnt=Placement.objects.filter(room=dm['Dorm_name']).count()
+            #                     if cnt<=int(dm['Capacity']):    
+            #                         place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],collage=data[5],department=data[4],block=block,room=dm['Dorm_name'])
+            #                         place.save()
+            #                         cnt=cnt+1
+            #                         print(cnt)
+            #                         sorted_female_social_student.remove(data)
                                 
-                                else:
-                                    count=0
-                                    break
                         
 
-    
+           
             for dm in d_all:
                    
                     bl=dm['Block_id']
                     block=Block.objects.get(id=bl)
                     if str(block.Block_purpose)=='Males Block':
-                     
-                         for data in sorted_male_natural_student:
-                                  if count<=int(dm['Capacity']):    
-                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
+                        #  print(dm)
+                         for data in female_list_all:
+                                  cnt=Placement.objects.filter(room=dm['Dorm_name']).count()
+                                  if cnt<=int(dm['Capacity']):    
+                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],collage=data[5],department=data[4],block=block,room=dm['Dorm_name'])
                                     place.save()
-                                    count=count+1
-                                 
-                                    sorted_male_natural_student.remove(data)
+                                    cnt=cnt+1
+                                    print(cnt)
+                                    female_list_all.remove(data)
                                 
-                                  else:
-                                    count=0
-                                    break
                                 
-            for dm in d_all:
-                bl=dm['Block_id']
-                block=Block.objects.get(Block=bl)
-                if block['Block_purpose']=="Females Block": 
-                 
-                    for data in sorted_female_natural_student:
-                          if count<=int(dm['Capacity']):    
-                                    place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],block=block,room=dm['Dorm_name'])
-                                    place.save()
-                                    count=count+1
-                                 
-                                    sorted_female_natural_student.remove(data)
+                          
+            # for dm in d_all:
+            #     bl=dm['Block_id']
+            #     block=Block.objects.get(Block=bl)
+            #     if block['Block_purpose']=="Females Block": 
+                  
+            #         for data in sorted_female_natural_student:
+            #               cnt=Placement.objects.filter(room=dm['Dorm_name']).count()
+            #               if cnt<=int(dm['Capacity']):   
+            #                         place=Placement(Stud_id=data[0],FirstName=data[1],LastName=data[2],collage=data[5],department=data[4],block=block,room=dm['Dorm_name'])
+            #                         place.save()
+            #                         cnt=cnt+1
+            #                         print(cnt)
+            #                         sorted_female_natural_student.remove(data)
                                 
-                          else:
-                                    count=0
-                                    break
-                                       
+                        
                         
     #   #Natural Female
     #         count=0
@@ -379,3 +381,47 @@ def Import_User1(request):
     except:
           messages.error(request,'Empty or Invalid File...!!')
     return render(request, 'StudentDean/uploadstudent.html',{})
+
+
+def managePlacement(request):
+    orderlist=['block','room','Stud_id','FirstName','LastName']
+    result=Placement.objects.order_by(*orderlist)
+    return render(request,"StudentDean/viewPlacementInfo.html",{"Placement":result})
+
+
+
+
+
+def updateStudent(request,pk):
+    #orderlist=['block','room','Stud_id','FirstName','LastName']
+    result=Placement.objects.get(id=pk)
+    #result1=Placement.objects.order_by(*orderlist)
+    form1=AddPlacementForm(request.POST or None,instance=result)
+    context = { 'res': result,'form':form1} 
+    if form1.is_valid():
+        form1.save()
+  
+        messages.success(request,"Data Updated Succesfully!")
+   
+    return render(request,'StudentDean/updateStudent.html',context)
+def delateStudent(request,pk):
+    result=Placement.objects.get(id=pk)
+    #result1=Dorm.objects.order_by('Block')
+    result.delete() 
+    
+    messages.error(request,"Data Deleted Succesfully!")
+    return redirect('managePlacement')
+
+
+def resetPlacement(request):
+    if request.method=='POST':
+        result=Placement.objects.all()
+        #result1=Dorm.objects.order_by('Block')
+        result.delete() 
+        
+        messages.error(request,"Data reset Succesfully!")
+    return render(request,'StudentDean/resetPlacement.html')
+
+def rPlacement(request):
+    return redirect('resetPlacement')
+   
