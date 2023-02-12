@@ -21,11 +21,16 @@ class RoleForm(forms.ModelForm):
      class Meta:
         model=Role
         fields='__all__'
-class GrantRoleForm(forms.ModelForm):
-    class Meta:
-        model=UserAccount
-        fields=('User','Role')
+
 class AddUserForm(forms.ModelForm):
     class Meta:
         model=User
         fields='__all__'
+# class DefaultUserForm(forms.Form):
+#     class Meta:
+#         model=UserAccount
+#         fields='__all__'
+class AddAccountForm(forms.ModelForm):
+    class Meta:
+        model=UserAccount
+        fields=['Role','username']

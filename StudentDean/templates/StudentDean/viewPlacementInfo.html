@@ -12,6 +12,9 @@
   <title>Add Block</title>
 </head>
 <body>
+  {% block title %}
+  Student Placement Information
+{% endblock title %}
  {% block content%}
  <table id="block" class="table table-hover">
     <thead>
@@ -19,6 +22,7 @@
             <th scope="col">ID</th>
             <th scope="col">First name</th>
             <th scope="col">Last name</th>
+            <th scope="col">Gender</th>
             <th scope="col">Collage</th>
             <th scope="col">Department</th>
             <th scope="col">Block</th>
@@ -31,6 +35,7 @@
         <th scope="row"><a href="{% url 'managePlacement' %}"> {{result.Stud_id}} </a></th>
         <td>{{result.FirstName}}</td>
         <td>{{result.LastName}}</td>
+        <td>{{result.gender}}</td>
         <td>{{result.collage}}</td>
         <td>{{result.department}}</td>
         <td>{{result.block}}</td>

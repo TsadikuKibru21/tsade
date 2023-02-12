@@ -15,12 +15,16 @@ CHOICES = [
         ('Active', 'Active'),
         ('InActive', 'InActive'),
     ]
-
+Gend=[
+    ('Male','Male'),
+    ('Female','Female'),
+]
 
 class Block(models.Model):
     Block_name=models.CharField(max_length=100)
     Block_type=models.CharField(max_length=150 , choices=BLOCK_TYPE)
     Block_purpose=models.CharField(max_length=100, choices=PURPOSE) 
+    Status=models.CharField(max_length=150 , choices=CHOICES)
     def __str__(self):
         return self.Block_name
 class Dorm(models.Model):
@@ -36,6 +40,7 @@ class Placement(models.Model):
     Stud_id=models.CharField(max_length=100)
     FirstName=models.CharField(max_length=100)
     LastName=models.CharField(max_length=100)
+    gender=models.CharField(max_length=100,choices=Gend)
     collage=models.CharField(max_length=100)
     department=models.CharField(max_length=100)
     block=models.CharField(max_length=100)

@@ -11,11 +11,16 @@
  
   <title>Add Block</title>
 </head>
+  {% block title %}
+  Dorm Information
+{% endblock title %}
 <body>
+    
     {% block breadcrumb %}
     <a class="btn btn-primary" href="{% url 'add_dorm' %}">
         <i class="fas fa-bars"></i>  Add Dorm</a>
     {% endblock breadcrumb %}
+    
  {% block content%}
  <table id="Dorm" class="table table-hover">
     <thead>

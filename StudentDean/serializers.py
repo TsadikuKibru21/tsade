@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class BlockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Block
-        fields = ['Block_name', 'Block_type', 'Block_purpose']
+        fields = ['Block_name', 'Block_type', 'Block_purpose','Status']
 class PlacementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Placement

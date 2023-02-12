@@ -7,9 +7,11 @@ urlpatterns = [
     path('useraccount/',views.generateuseraccount,name="useraccount"),
     path('accountmanagment/',views.accountmanagment,name='accountmanagment'),
     path('addrole/',views.AddRole,name="addole"),
-    path('grantrole/', views.GrantRole, name="grantrole"),
     path('Aadduser/', views.AddUser,name="Ad_adduser"),
     path('userinfo/',views.userinfo,name="userinfo"),
     path('deleteuser/',views.deleteuser,name="deleteuser"),
-    path('logout/',views.logout,name='logout'),
+    path('grantrole/', views.GrantRole, name="grantrole"),
+    path('updaterole/<int:pk>/',views.updaterole,name='updaterole'),
+    #path('updateblock/<int:pk>/',views.updateblock,name='updateblock'),
+    path('logout/',views.logout_View,name='logout'),
 ]

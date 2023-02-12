@@ -11,7 +11,12 @@
 
   <title>Add Block</title>
 </head>
+  {% block title %}
+  Block Information
+{% endblock title %}
+ 
 <body>
+
  {% block content%}
  <table id="block" class="table table-hover">
     <thead>
@@ -19,6 +24,7 @@
             <th scope="col">Block_name</th>
             <th scope="col">Block Type</th>
             <th scope="col">Block Purpose</th>
+             <th scope="col">Block Status</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +33,7 @@
         <th scope="row"><a href="{% url 'viewdorm' result.id %}"> {{result.Block_name}} </a></th>
         <td>{{result.Block_type}}</td>
         <td>{{result.Block_purpose}}</td>
+        <td>{{result.Status}}</td>
         <td>
             <a class="btn btn-success"  href="{% url 'updateblock' result.id %}" role="button">Edit</a>
             <a class="btn btn-danger" href="{% url 'delateblock' result.id %}" role="button" onclick="return confirm('Are you sure you want to delete?')">Remove</a>

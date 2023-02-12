@@ -13,10 +13,7 @@ class AddBlockForm(forms.ModelForm):
 #         model=Dorm
 #         fields='__all__'
 class AddDorm(forms.ModelForm):
-    CHOICES = [
-        ('1', 'Active'),
-        ('2', 'InActive'),
-    ]
+
 
     # Block = forms.CharField(
     #     widget=forms.TextInput(
@@ -39,10 +36,7 @@ class AddDorm(forms.ModelForm):
     #         }
     #     )
     # ) 
-    Status = forms.ChoiceField(
-        widget=forms.RadioSelect,
-        choices=CHOICES, 
-    )
+   
     class Meta:
         model = Dorm
         fields = '__all__'
