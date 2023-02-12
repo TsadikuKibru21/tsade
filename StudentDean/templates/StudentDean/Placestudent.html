@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+ <b>Select Criteria to Place Student</b>
+{% endblock title %}
+
+{% block content %}
+
+
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="stream">stream</label>
+      <input type="checkbox" name="student" value="stream"><br>
+      <label for="collage">collage</label>
+      <input type="checkbox" name="student" value="collage"><br>
+      <label for="department">department</label>
+      <input type="checkbox" name="student" value="department"><br>
+      <label for="batch">batch</label>
+      <input type="checkbox" name="student" value="batch"><br>
+
+    <input type="submit" class="btn btn-success" value="Place Student">
+  </form>
+
+{% endblock content %}

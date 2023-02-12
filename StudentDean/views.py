@@ -231,50 +231,43 @@ def Import_User1(request):
             natural_male_student=[]
             social_female_student=[]
             natural_female_student=[]
-         #   print(1)
-            a=User.objects.all().order_by('FirstName').values()
+            criteria=request.POST.getlist('student')
+            
+            
+            a=UserAccount.objects.all().values()
+            stud_all=[]
+
+            
             for data in a:
-                    b=[]
-                    #print(data['stream'])
-                   # print(data.values())
-                    # b=dict(data['Id_no'],data['FirstName'],,,,,,)
-                    # print(b)
-                    a1=data['Id_no']
-                    a2=data['FirstName']
-                    a3=data['LastName']
-                    a4=data['Gender']
-                    a5=data['Department']
-                    a6=data['collage']
-                    a7=data['stream']
-                    a8=data['Year_of_Student'] 
-                    aa=data['Student_or_Not']
-                    #print(a5)
-                    b.append(a1)
-                    b.append(a2)
-                    b.append(a3)
-                    b.append(a4)
-                    b.append(a5)
-                    b.append(a6)
-                    b.append(a7)
-                    b.append(a8)
-                 
-                   
-                    if str(aa)!='no':    
-                        if data['Gender']=='M':
-                        
-                            if data['stream']=='social':
-                                # social_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-                                social_male_student.append(b)
-                            else:
-                                natural_male_student.append(b)
-                                #natural_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                   temp=[] 
+                   if data['Role_id']==2:
+                       
+                        stud_id=data['User_id']
+                        student=User.objects.get(id=stud_id)
+                        temp.append(student.Id_no)
+                        temp.append(student.FirstName)
+                        temp.append(student.LastName)
+                        temp.append(student.Gender)
+                        temp.append(student.Department)
+                        temp.append(student.collage)
+                        temp.append(student.stream)
+                        temp.append(student.Year_of_Student)
+
+              
+                    
+                        if data['stream']=='social':
+                            # social_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                            social_male_student.append(temp)
                         else:
-                            if data['stream']=='social':
-                                social_female_student.append(b)
-                                # social_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
-                            else:
-                                natural_female_student.append(b)
-                              #natural_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                            natural_male_student.append(temp)
+                            #natural_male_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                   
+                        if data['stream']=='social':
+                            social_female_student.append(temp)
+                            # social_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
+                        else:
+                            natural_female_student.append(temp)
+                            natural_female_student.append(data['Id_no'],data['FirstName'],data['LastName'],data['Gender'],data['Department'],data['stream'],data['collage'],data['Year_of_Student'])
             sorted_male_social_student=sorted(social_male_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
             sorted_female_social_student=sorted(social_female_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
             sorted_male_natural_student=sorted(natural_male_student,key=lambda x:(x[5],x[4],x[7],x[1],x[2]))
@@ -399,7 +392,7 @@ def Import_User1(request):
         messages.success(request,'Sudent placed successfully....!!!')                
     except:
           messages.error(request,'Empty or Invalid File...!!')
-    return render(request, 'StudentDean/uploadstudent.html',{})
+    return render(request, 'StudentDean/Placestudent.html',{})
 
 
 def managePlacement(request):
@@ -422,7 +415,7 @@ def updateStudent(request,pk):
   
         messages.success(request,"Data Updated Succesfully!")
    
-    return render(request,'StudentDean/updateStudent.html',context)
+    return render(request,'StudentDean/updatestudent.html',context)
 def delateStudent(request,pk):
     result=Placement.objects.get(id=pk)
     #result1=Dorm.objects.order_by('Block')
