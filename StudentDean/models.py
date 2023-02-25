@@ -43,6 +43,7 @@ class Placement(models.Model):
     gender=models.CharField(max_length=100,choices=Gend)
     collage=models.CharField(max_length=100)
     department=models.CharField(max_length=100)
+    batch=models.CharField(max_length=100)
     block=models.CharField(max_length=100)
     room=models.CharField(max_length=100)
     def __str__(self):
