@@ -47,7 +47,8 @@ class Placement(models.Model):
     collage=models.CharField(max_length=100)
     department=models.CharField(max_length=100)
     batch=models.CharField(max_length=100)
-    block=models.CharField(max_length=100)
-    room=models.CharField(max_length=100)
+    block=models.ForeignKey(Block,on_delete=models.CASCADE)
+    room=models.ForeignKey(Dorm,on_delete=models.CASCADE)
     def __str__(self):
         return self.Stud_id
+

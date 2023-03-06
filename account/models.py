@@ -16,6 +16,10 @@ class User(models.Model):
         ('natural','natural')
 
     )
+    disable=(
+        ('disable','disable'),
+        ('non_disable','non-disable'),
+    )
     #Role=models.ForeignKey(Role,on_delete=models.CASCADE,null=True)
     Id_no=models.CharField(max_length=200,null=False)
     FirstName=models.CharField(max_length=100,null=False)
@@ -26,6 +30,7 @@ class User(models.Model):
     collage=models.CharField(max_length=200, null=True,blank=True,default='nan')
     Department=models.CharField(max_length=200, null=True,blank=True,default='nan')
     Year_of_Student=models.CharField(max_length=50, null=True,blank=True,default='nan')
+    disability=models.CharField(max_length=200,choices=disable)
     Emergency_responder_name=models.CharField(max_length=200,null=True,blank=True)
     Emergency_responder_address=models.CharField(max_length=200,null=True,blank=True)
     Emergency_responder_phone_no=models.CharField(max_length=13, null=True,blank=True)

@@ -75,10 +75,10 @@ def login_view(request):
                     request.session['username'] = username
                     login(request,user)
                     return redirect('supervisor')
-                elif role=='Registrar':
+                elif role=='Rigistrar':
                     request.session['username'] = username
                     login(request,user)
-                    return redirect('Registrar')
+                    return redirect('Rigistrar')
                 else:
                     print("In cant sign")
             else:

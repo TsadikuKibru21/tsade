@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  Reset Student Placement
-{% endblock title %}
 
+{% block title %}
+<h1>Reset Placement</h1>
+{% endblock title %}
 
 
 {% block content %}
@@ -12,7 +12,7 @@
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
   
-    <input type="submit" class="btn btn-success" value="Reset Student Placement">
+    <input type="submit" class="btn btn-success" value="Reset Student Placement" onclick="return confirm('Are you sure you want to reset all Placement?')">
   </form>
 
 {% endblock content %}

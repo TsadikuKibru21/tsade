@@ -9,3 +9,4 @@ class ProctorSchedule(models.Model):
     # time=models.TimeField()
     def __str__(self):
         return self.user
+

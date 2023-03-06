@@ -12,8 +12,8 @@ def student_info(request):
     if 'username' in request.session:
         username = request.session['username']
     
-    proctor=ProctorSchedule.objects.get(user=username)
-    print(proctor.Block)
+        proctor=ProctorSchedule.objects.get(user=username)
+        print(proctor.Block)
 
     return render(request,'Proctor/student_info.html')
 @login_required(login_url='login_view')

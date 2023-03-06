@@ -64,6 +64,7 @@ def Import_User(request):
                                               stream=dbframe.stream,collage=dbframe.collage,
                                               Department=dbframe.Department, 
                                               Year_of_Student=dbframe.Year_of_Student, 
+                                              disability=dbframe.disability, 
                                               Emergency_responder_name=dbframe.Emergency_responder_name,
                                               Emergency_responder_address=dbframe.Emergency_responder_address, 
                                               Emergency_responder_phone_no=dbframe.Emergency_responder_phone_no)
@@ -102,6 +103,7 @@ class DownloadCSVViewdownloadcsv(LoginRequiredMixin, View):
                 'collage',
                 "Department",
                 "Year_of_Student",
+                "disability",
                 "Emergency_responder_name",
                 "Emergency_responder_address",
                 "Emergency_responder_phone_no",
