@@ -26,19 +26,18 @@ def index(request):
         role.R_name="Admin"
         role.save()
         print("role added")
-    if UserAccount.objects.filter(username="Admin").exists():
+    if UserAccount.objects.filter(username="AdminAdmin").exists():
         print("acc already added")
         pass
     else:
-        acc=UserAccount()
-        acc.username="Admin"
+        form=UserAccount()
+        form.username="AdminAdmin"
         password=make_password("Admin")
-        acc.password=password
-        #user=User.objects.get(Id_no="Admin")
-        #user1=int(user.id)
-        #acc.User=user1
-        #acc.save()
-        #print("accc added ",user1)
+        form.password=password
+        form.Role=Role.objects.get(R_name="Admin")
+        form.User=User.objects.get(Id_no="Admin")
+        form.save()
+        print("accc added ")
     return render(request,"index.html")
 def login_view(request):
     form=LoginForm(request.POST or None)
@@ -52,22 +51,34 @@ def login_view(request):
             if user is not None:
                 #role=user.Role
                 role=str(user.Role)
-               
+                
                 if role  == "Student_Dean":
+                    request.session['username'] = username
                     login(request, user)
                     return redirect('studentdeanhome')
                 elif role=='Admin':
-                    print(role)
-                    login(request, user)
+                    print(role) 
                     request.session['username'] = username
-                    
-                    print("gate")
+                    login(request, user)
                     return redirect('LAdmin',)
                     #return render(request, 'account/index.html',{'username':username})
                 elif role=='Student':
+                    request.session['username'] = username
                     login(request,user)
                     return redirect('student')
                     #return render(request, 'account/index.html')
+                elif role=='Proctor':
+                    request.session['username'] = username
+                    login(request,user)
+                    return redirect('proctor')
+                elif role=='Supervisor':
+                    request.session['username'] = username
+                    login(request,user)
+                    return redirect('supervisor')
+                elif role=='Registrar':
+                    request.session['username'] = username
+                    login(request,user)
+                    return redirect('Registrar')
                 else:
                     print("In cant sign")
             else:

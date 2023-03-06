@@ -29,7 +29,7 @@
     <form action="#" method="POST">
         {% csrf_token %}
         <label for="">Username</label>
-        <input type="text" class="form-control" {{form.username}}
+        <input type="text" class="form-control readonly" {{form.username}}
        <br>
        <label for="">Role</label><br>
         {{form.Role}} <br>

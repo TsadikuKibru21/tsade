@@ -1,11 +1,12 @@
-
 from pyexpat import model
 from django.db import models
 
 # Create your models here.
 BLOCK_TYPE= [
-    ('Single-Block', 'Single Block'),
-    ('4-Sieded-Block', '4_Sided Block'),
+    ('Main Campus', 'Main Campus'),
+    ('Clustor Campus', 'Clustor Campus'),
+    ('Health Campus', 'Health Campus'),
+    ('Butajera Campus', 'Butajera Campus'),
     ]
 PURPOSE= [
     ('Males Block', 'Males Block'),
@@ -24,6 +25,7 @@ class Block(models.Model):
     Block_name=models.CharField(max_length=100)
     Block_type=models.CharField(max_length=150 , choices=BLOCK_TYPE)
     Block_purpose=models.CharField(max_length=100, choices=PURPOSE) 
+    Block_Capacity=models.IntegerField() 
     Status=models.CharField(max_length=150 , choices=CHOICES)
     def __str__(self):
         return self.Block_name
@@ -41,6 +43,7 @@ class Placement(models.Model):
     FirstName=models.CharField(max_length=100)
     LastName=models.CharField(max_length=100)
     gender=models.CharField(max_length=100,choices=Gend)
+    stream=models.CharField(max_length=100)
     collage=models.CharField(max_length=100)
     department=models.CharField(max_length=100)
     batch=models.CharField(max_length=100)

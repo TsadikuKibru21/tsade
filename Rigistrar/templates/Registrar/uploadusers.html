@@ -1,0 +1,46 @@
+{% extends 'Registrar/base.html' %}
+
+
+{% block title %}
+  Upload Bulk Students from file
+{% endblock title %}
+
+
+{% block content %}
+<div id="spinner_box" style="display: none;" class="text-center mt-3">
+  <h1>Loading...</h1>
+  <div class="spinner-grow text-primary" role="status">
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+  </div>
+  <div class="spinner-grow text-success" role="status">
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+  </div>
+  <div class="spinner-grow text-warning" role="status">
+  </div>
+  <div class="spinner-grow text-info" role="status">
+  </div>
+  <div class="spinner-grow text-light" role="status">
+  </div>
+  <div class="spinner-grow text-dark" role="status">
+  </div>
+  </div>
+  <div class="col alert alert-info">
+    <h5>Instruction</h5>
+    <p>Please <a href="{% url 'download_csv' %}">download the CSV file attached here</a>. Fill in the sheet and upload the same file back to this page. DO NOT EDIT THE FIRST ROW and save as Excelfile</p>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="myfile" id="fileSelect" class="form-control" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+    <!-- <input type="file" name="myfile" class="form-control"> --><br>
+    <input type="submit" onclick="spinner();" class="btn btn-success" value="Submit">
+  </form>
+<script>
+  function spinner(){
+      
+      document.getElementById("spinner_box").style.display="block";
+    }
+</script>
+{% endblock content %}

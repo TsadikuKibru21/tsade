@@ -22,5 +22,8 @@ urlpatterns = [
     path('',views.index, name="index"),
     path('Login',views.login_view,name="login_view"),
     path('studentdean/',include('StudentDean.urls')),
-    path('Student',include('Student.urls')),
+    path('Student/',include('Student.urls')),
+    path('Proctor/',include('Proctor.urls')),
+    path('Supervisor/',include('Supervisor.urls')),
+    path('Rigistrar/',include('Rigistrar.urls')),
 ]

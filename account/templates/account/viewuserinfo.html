@@ -1,7 +1,7 @@
 {% extends 'account/index.html' %}
 
 {% block title %}
-  <center>Generate User Account</center>
+ View User Account
 {% endblock title %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-  <title>Add Block</title>
+  <title>View Users</title>
 </head>
 </body>
 {% block content%}
@@ -20,8 +20,28 @@
 {% for message in messages %}
 {% endfor %}
 {% endif %}
+<div id="spinner_box" style="display: none;" class="text-center mt-3">
+  <h1>Delating Users...</h1>
+  <div class="spinner-grow text-primary" role="status">
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+  </div>
+  <div class="spinner-grow text-success" role="status">
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+  </div>
+  <div class="spinner-grow text-warning" role="status">
+  </div>
+  <div class="spinner-grow text-info" role="status">
+  </div>
+  <div class="spinner-grow text-light" role="status">
+  </div>
+  <div class="spinner-grow text-dark" role="status">
+  </div>
+  </div>
 <form action="{% url 'deleteuser' %}" method="POST">
   {% csrf_token %}
+  <a href="{% url 'deleteuser' %}"><input id="get-selected" type="submit" class="btn btn-danger mt-2" value="Delete Users" onclick="spinner();"></a>
 <table id="useraccounttable"  class="table table-sm table-bordered" data-page-length='100'>
     <thead class="thead-light">
         <tr>  
@@ -52,7 +72,7 @@
 
 </tbody>
 </table>
-<a href="{% url 'deleteuser' %}"><input id="get-selected" type="submit" class="btn btn-danger mt-2" value="Delete Users" onclick="return confirm('Are you sure you want to delete?')"></a>
+
 
 </form>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -70,6 +90,11 @@
         })
         // var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
     });
+    function spinner(){
+    
+    document.getElementById("spinner_box").style.display="block";
+    return confirm('Are you sure you want to delete?')
+  }
 </script>
 {% endblock %}
 

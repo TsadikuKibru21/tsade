@@ -25,7 +25,11 @@ class RoleForm(forms.ModelForm):
 class AddUserForm(forms.ModelForm):
     class Meta:
         model=User
-        fields='__all__'
+        fields=['Id_no','FirstName','LastName','Gender','phone_no']
+        widgets = {
+        
+            'Gender': forms.Select(attrs={'class': 'form-control'}),
+        }
 # class DefaultUserForm(forms.Form):
 #     class Meta:
 #         model=UserAccount
@@ -33,4 +37,8 @@ class AddUserForm(forms.ModelForm):
 class AddAccountForm(forms.ModelForm):
     class Meta:
         model=UserAccount
-        fields=['Role','username']
+        fields=['username','Role']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control' ,'readonly':'True'}),
+            'Role': forms.Select(attrs={'class': 'form-control'}),
+        }

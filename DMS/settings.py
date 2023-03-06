@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'Student',
+    'Supervisor',
+    'Rigistrar',
+    'Proctor',
 ]
 CRISPY_ALLOWED_TEMPLATE="bootstrap5"
 CRISPY_TEMPLATE_PACK="bootstrap5"

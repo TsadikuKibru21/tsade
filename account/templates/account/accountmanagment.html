@@ -1,8 +1,11 @@
 {% extends 'account/index.html' %}
 
 {% block title %}
-  <center>Generate User Account</center>
+  Generate User Account <br>
+  <h1 style="color: brown;">There are {{AvUser}} Users. Of Them {{Account}} Have an Account</h1> 
 {% endblock title %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +18,34 @@
   <title>Add Block</title>
 </head>
 </body>
+
 {% block content%}
 {% if messages %}
 {% for message in messages %}
 {% endfor %}
 {% endif %}
+<div id="spinner_box" style="display: none;" class="text-center mt-3">
+<h1>Generating...</h1>
+<div class="spinner-grow text-primary" role="status">
+</div>
+<div class="spinner-grow text-secondary" role="status">
+</div>
+<div class="spinner-grow text-success" role="status">
+</div>
+<div class="spinner-grow text-danger" role="status">
+</div>
+<div class="spinner-grow text-warning" role="status">
+</div>
+<div class="spinner-grow text-info" role="status">
+</div>
+<div class="spinner-grow text-light" role="status">
+</div>
+<div class="spinner-grow text-dark" role="status">
+</div>
+</div>
 <form action="{% url 'useraccount' %}" method="POST">
   {% csrf_token %}
+  <a href="{% url 'useraccount' %}"><input id="get-selected" onclick="spinner();" type="submit" class="btn btn-success mt-2" value="Generate User Account "></a>
 <table id="useraccounttable"  class="table table-sm table-bordered" data-page-length='100'>
     <thead class="thead-light">
         <tr>  
@@ -52,9 +76,9 @@
 
 </tbody>
 </table>
-<a href="{% url 'useraccount' %}"><input id="get-selected" type="submit" class="btn btn-success mt-2" value="Generate User Account "></a>
 
 </form>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     $(function () {
@@ -70,6 +94,10 @@
         })
         // var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
     });
+    function spinner(){
+      
+    document.getElementById("spinner_box").style.display="block";
+  }
 </script>
 {% endblock %}
 

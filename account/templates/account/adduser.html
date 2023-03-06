@@ -1,14 +1,16 @@
 {% extends 'account/base.html' %}
 {% load crispy_forms_tags %}  
 
-
+{% block title %}
+<h1>Add User</h1>
+{% endblock title %}
 {%block content%}
 
 {% if messages %}
 {% for message in messages %}
 {% endfor %}
 {% endif %}
-<center><h1>Add User</h1></center>
+
 <form action="" method="POST">
     {% csrf_token %}
     {{form|crispy}}

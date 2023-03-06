@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Place Students</h1>
+{% endblock title %}
+{% block content %}
+<div id="spinner_box" style="display: none;" class="text-center mt-3">
+  <h1>Placing...</h1>
+  <div class="spinner-grow text-primary" role="status">
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+  </div>
+  <div class="spinner-grow text-success" role="status">
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+  </div>
+  <div class="spinner-grow text-warning" role="status">
+  </div>
+  <div class="spinner-grow text-info" role="status">
+  </div>
+  <div class="spinner-grow text-light" role="status">
+  </div>
+  <div class="spinner-grow text-dark" role="status">
+  </div>
+  </div>
+<h3>Select Criteria to Place</h3>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+     
+     <input type="checkbox" name="criteria"  value="collage" id="">
+     <label style="margin-left: 5px;" for="">By College</label>
+     <br>
+     <input type="checkbox" name="criteria"  value="department" id="">
+     <label style="margin-left: 5px;" for="">By Department</label>
+     <br>
+     <input type="checkbox" name="criteria"  value="batch" id="">
+     <label style="margin-left: 5px;" for="">By Batch</label>
+     <br>
+     
+    <input type="submit" onclick="spinner();" class="btn btn-success" value="Place Student">
+  </form>
+<script>
+    function spinner(){
+      
+      document.getElementById("spinner_box").style.display="block";
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends 'Supervisor/base.html'%}
+{% load crispy_forms_tags%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <title>Add Block</title>
+</head>
+<body>
+{% block title %}
+  <h1>View Proctor Information</h1>
+{% endblock title %}
+ {% block content%}
+ <table id="block" class="table table-hover">
+    <thead>
+        <tr>  
+            <th scope="col">Proctor_name</th>
+            <th scope="col">Block</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in Result %}
+    <tr>
+        <td>{{result.user}}</td>
+        <td>{{result.Block}}</td>
+        <td>
+            {%comment%}{% url 'updateblock' result.id %} {%endcomment%}
+            <a class="btn btn-success"  href="#" role="button">Update</a>
+            {%comment%}{% url 'delateblock' result.id %} {%endcomment%}
+            <a class="btn btn-danger" href="#" role="button" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+        </td>               
+    </tr>
+    {% endfor%}
+</tbody>
+</table>
+ {% endblock content%}
+
+ {% block morejs %}
+ <script>
+   $('#block').DataTable({
+     "ordering": false
+   });
+ </script>
+ {% endblock morejs %}
+
+</body>
+</html>
