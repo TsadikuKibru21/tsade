@@ -45,12 +45,13 @@ def Adduser1(request):
             return redirect('adduser')
 @login_required(login_url='login_view')
 def Import_User(request):
+    count=0
     try:
         if request.method == 'POST' and request.FILES['myfile']:      
             myfile = request.FILES['myfile']             
             empexceldata = pd.read_excel(myfile)        
             dbframe = empexceldata
-            count=0
+            
             for dbframe in dbframe.itertuples():
                
                 if User.objects.filter(Id_no=dbframe.Id_no).exists():          
@@ -64,7 +65,7 @@ def Import_User(request):
                                               stream=dbframe.stream,collage=dbframe.collage,
                                               Department=dbframe.Department, 
                                               Year_of_Student=dbframe.Year_of_Student, 
-                                              disability=dbframe.disability, 
+                                              disability=dbframe.disability,
                                               Emergency_responder_name=dbframe.Emergency_responder_name,
                                               Emergency_responder_address=dbframe.Emergency_responder_address, 
                                               Emergency_responder_phone_no=dbframe.Emergency_responder_phone_no)

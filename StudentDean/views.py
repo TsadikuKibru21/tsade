@@ -122,14 +122,21 @@ def PlaceStudent(request):
     # print("We Gate")
     count=0
     try:
+       
         criteria=request.POST.getlist('criteria')
         if request.method == 'POST': 
             social_male_student=[]
             social_female_student=[]
             natural_male_student=[]
             natural_female_student=[]
+            
+
+            disable_natural_male_student=[]
+            disable_social_male_student=[]
+            disable_natural_female_student=[]
+            disable_social_female_student=[]
             account=UserAccount.objects.all().values()
-            for data in account:
+            for data in account:                
                 if data['Role_id']==3:
                     stud_id=data['User_id']
                     student=User.objects.get(id=stud_id)
@@ -142,7 +149,9 @@ def PlaceStudent(request):
                     a6=student.collage
                     a7=student.stream
                     a8=student.Year_of_Student
+                    a9=student.disability
                     # #error is here
+                   
                     b.append(a1)
                     b.append(a2)
                     b.append(a3)
@@ -151,20 +160,120 @@ def PlaceStudent(request):
                     b.append(a6)
                     b.append(a7)
                     b.append(a8)
+                    b.append(a9)
+                    
                     #print(b)
                     if b[3]=="Male":
                         # male_student.append(b)
-                        if a7=="social":
-                            social_male_student.append(b)
-                        else:
-                            natural_male_student.append(b)
+                       if b[9]=='disable':
+                            if a7=="social":
+                             disable_social_male_student.append(b)
+                            elif a7=='natural':
+                             disable_natural_male_student.append(b)
+                       else:
+                            if a7=="social":
+                                social_male_student.append(b)
+                            elif a7=='natural':
+                                natural_male_student.append(b)
                     else:
-                        if a7=="natural":
-                            natural_female_student.append(b)
-                        else:
-                            social_female_student.append(b)
+                          if b[9]=='disable':
+                            if a7=="social":
+                             disable_social_female_student.append(b)
+                            elif a7=='natural':
+                             disable_natural_female_student.append(b)
+                          else:
+                            if a7=="social":
+                                social_female_student.append(b)
+                            elif a7=='natural':
+                                natural_female_student.append(b)
              
+            print(natural_female_student)       
+
+            # print(1)
+            # sorted_disable_female_social_student=sorted(disable_social_female_student,key=lambda x:(x[1],x[2]))
+            # sorted_disable_female_natural_student=sorted(disable_natural_female_student,key=lambda x:(x[1],x[2]))
+            # sorted_disable_male_social_student=sorted(disable_social_male_student,key=lambda x:(x[1],x[2]))
+            # sorted_disable_male_natural_student=sorted(disable_natural_male_student,key=lambda x:(x[1],x[2]))
             
+            order=['Block','Dorm_name']
+            dorm=Dorm.objects.all().order_by(*order).values()
+            
+            # for dorm1 in dorm:
+                
+            #     bl=dorm1['Block_id']
+            #     block=Block.objects.get(id=bl)
+            #     if str(block.Block_purpose)=='Males Block'and dorm1['Status']=='Active':
+            #         #print(sorted_male_social_student)
+            #         s=str(dorm1['Dorm_name'])
+            #         for socmale in sorted_disable_male_social_student: 
+                       
+            #             cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
+            #             if s[0]=='0':
+            #              if int(cnt)<int(dorm1['Capacity']):
+            #                 if Placement.objects.filter(Stud_id=socmale[0]).exists():
+            #                      pass
+            #                 else:
+            #                    #Stud_id,FirstName,LastName,gender,stream,collage,department,batch,block,room
+            #                         place=Placement(Stud_id=socmale[0],block=block,room=dorm1['Dorm_name'])
+            #                         place.save()
+            #                         count=count+1
+            #                     #print(place)
+            #              else:
+            #                 break 
+            #         for natmale in sorted_disable_male_natural_student:
+            #             s=str(dorm1['Dorm_name'])
+            #             cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
+            #             if s[0]=='0':
+            #              if int(cnt)<int(dorm1['Capacity']):
+            #                 if Placement.objects.filter(Stud_id=natmale[0]).exists():
+            #                      pass
+            #                 else:
+            #                    #Stud_id,FirstName,LastName,gender,stream,collage,department,batch,block,room
+            #                         place=Placement(Stud_id=natmale[0],block=block,room=dorm1['Dorm_name'])
+            #                         place.save()
+            #                         count=count+1
+            #                     #print(place)
+            #              else:
+            #                 break 
+            #     elif str(block.Block_purpose)=='Females Block'and dorm1['Status']=='Active':
+            #         # print(sorted_female_social_student)
+            #         for socfemale in sorted_disable_female_social_student:
+            #             s=str(dorm1['Dorm_name'])
+            #             cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
+            #             if s[0]=='0':
+            #              if int(cnt)<int(dorm1['Capacity']):
+            #                 if Placement.objects.filter(Stud_id=socfemale[0]).exists():
+            #                      pass
+            #                 else:
+            #                    #Stud_id,FirstName,LastName,gender,stream,collage,department,batch,block,room
+            #                         place=Placement(Stud_id=socfemale[0],block=block,room=dorm1['Dorm_name'])
+            #                         place.save()
+            #                         count=count+1
+            #                     #print(place)
+            #              else:
+            #                 break 
+            #         for natfemale in sorted_disable_female_natural_student:
+            #             s=str(dorm1['Dorm_name'])
+            #             cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
+            #             if s[0]=='0':
+            #              if int(cnt)<int(dorm1['Capacity']):
+            #                 if Placement.objects.filter(Stud_id=natfemale[0]).exists():
+            #                      pass
+            #                 else:
+            #                    #Stud_id,FirstName,LastName,gender,stream,collage,department,batch,block,room
+            #                         place=Placement(Stud_id=natfemale[0],block=block,room=dorm1['Dorm_name'])
+            #                         place.save()
+            #                         count=count+1
+            #                     #print(place)
+            #              else:
+            #                 break 
+
+
+##################################################################################
+
+
+
+
             if 'collage' in criteria:
                     if 'department' in criteria:
                         if 'batch' in criteria:
@@ -233,13 +342,13 @@ def PlaceStudent(request):
                    
                     for socmale in sorted_male_social_student: 
                        
-                        cnt=Placement.objects.filter(block=block, room=dorm1['Dorm_name']).count()
+                        cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
                         if int(cnt)<int(dorm1['Capacity']):
                             if Placement.objects.filter(Stud_id=socmale[0]).exists():
                                  pass
                             else:
                                 #Stud_id,FirstName,LastName,gender,stream,collage,department,batch,block,room
-                                place=Placement(Stud_id=socmale[0],FirstName=socmale[1],LastName=socmale[2],gender='Male',stream=socmale[6],collage=socmale[5],department=socmale[4] ,batch=socmale[7] ,block=block,room=dorm1['Dorm_name'])
+                                place=Placement(Stud_id=socmale[0],block=block,room=dorm1['Dorm_name'])
                                 place.save()
                                 count=count+1
                                 #print(place)
@@ -252,7 +361,7 @@ def PlaceStudent(request):
                                 pass
                             else:
                                 x=8
-                                place=Placement(Stud_id=natmale[0],FirstName=natmale[1],LastName=natmale[2],gender='Male',stream=natmale[6],collage=natmale[5],department=natmale[4],batch=natmale[7] ,block=block,room=dorm1['Dorm_name'])
+                                place=Placement(Stud_id=natmale[0],block=block,room=dorm1['Dorm_name'])
                                 place.save()
                                 count=count+1
                                 #print(place)
@@ -261,23 +370,23 @@ def PlaceStudent(request):
                 elif str(block.Block_purpose)=='Females Block'and dorm1['Status']=='Active':
                     # print(sorted_female_social_student)
                     for socfemale in sorted_female_social_student:
-                        cnt=Placement.objects.filter(block=block, room=dorm1['Dorm_name']).count()
+                        cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
                         if int(cnt)<int(dorm1['Capacity']):
                             if Placement.objects.filter(Stud_id=socfemale[0]).exists():
                                 pass
                             else:
-                                place=Placement(Stud_id=socfemale[0],FirstName=socfemale[1],LastName=socfemale[2],gender='Female',stream=natmale[6],collage=socfemale[5],department=socfemale[4],batch=socfemale[7] ,block=block,room=dorm1['Dorm_name'])
+                                place=Placement(Stud_id=socfemale[0],block=block,room=dorm1['Dorm_name'])
                                 place.save()
                                 count=count+1
                         else:
                             break
                     for natfemale in sorted_female_natural_student:
-                        cnt=Placement.objects.filter(block=block, room=dorm1['Dorm_name']).count()
+                        cnt=Placement.objects.filter(block=block,room=dorm1['Dorm_name']).count()
                         if int(cnt)<int(dorm1['Capacity']):
                             if Placement.objects.filter(Stud_id=natfemale[0]).exists():
                                 pass
                             else:
-                                place=Placement(Stud_id=natfemale[0],FirstName=natfemale[1],LastName=natfemale[2],gender='Female',stream=natfemale[6],collage=natfemale[5],department=natfemale[4] ,batch=natfemale[7] ,block=block,room=dorm1['Dorm_name'])
+                                place=Placement(Stud_id=natfemale[0],block=block,room=dorm1['Dorm_name'])
                                 place.save()
                                 count=count+1
                         else:
@@ -292,15 +401,15 @@ def PlaceStudent(request):
                 messages.success(request,msg)               
     except:
           messages.error(request,'Empty or Invalid File...!!')
-    return render(request, 'StudentDean/uploadstudent.html')
+    return render(request, 'StudentDean/Placestudent.html')
 
 @login_required(login_url='login_view')
 def managePlacement(request):
-    orderlist=['block','room','Stud_id','FirstName','LastName']
+    orderlist=['block','room','Stud_id']
     result=Placement.objects.order_by(*orderlist)
     if request.method =='POST':
         searched=request.POST['searched']
-        result=Placement.objects.filter(FirstName__contains=searched)| Placement.objects.filter(LastName__contains=searched)| Placement.objects.filter(department__contains=searched)
+        result=Placement.objects.filter(Stud_id__contains=searched)
         return render(request, "StudentDean/viewPlacementInfo.html",{"Placement":result})
     return render(request,"StudentDean/viewPlacementInfo.html",{"Placement":result})
 @login_required(login_url='login_view')

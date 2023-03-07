@@ -1,6 +1,6 @@
 from pyexpat import model
 from django.db import models
-
+from account.models import UserAccount
 # Create your models here.
 BLOCK_TYPE= [
     ('Main Campus', 'Main Campus'),
@@ -39,14 +39,7 @@ class Dorm(models.Model):
     
 
 class Placement(models.Model):
-    Stud_id=models.CharField(max_length=100)
-    FirstName=models.CharField(max_length=100)
-    LastName=models.CharField(max_length=100)
-    gender=models.CharField(max_length=100,choices=Gend)
-    stream=models.CharField(max_length=100)
-    collage=models.CharField(max_length=100)
-    department=models.CharField(max_length=100)
-    batch=models.CharField(max_length=100)
+    Stud_id=models.ForeignKey(UserAccount,on_delete=models.CASCADE)
     block=models.ForeignKey(Block,on_delete=models.CASCADE)
     room=models.ForeignKey(Dorm,on_delete=models.CASCADE)
     def __str__(self):
